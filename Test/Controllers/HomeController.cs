@@ -28,6 +28,7 @@ namespace Test.Controllers
 		public ActionResult UploadExcel(HttpPostedFileBase file)
 		{
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
 			if (file != null && file.ContentLength > 0 && (file.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || file.ContentType == "application/vnd.ms-excel"))
 			{
 				using (var package = new ExcelPackage(file.InputStream))
@@ -35,8 +36,11 @@ namespace Test.Controllers
 					var worksheet = package.Workbook.Worksheets[0];
 
 					// Tablo oluşturma (Excel sütunlarına göre)
-					string tableName = "DataTable"; // Tablo adı
+					string tableName = "DataTable";
 					CreateTableFromExcel(worksheet, tableName);
+
+					// Tablo varsa, tabloyu temizle
+					ClearTable(tableName);
 
 					// Verileri oku ve veritabanına ekle
 					var data = ReadDataTable(worksheet);
@@ -45,6 +49,20 @@ namespace Test.Controllers
 			}
 
 			return RedirectToAction("Index");
+			
+		}
+
+		private void ClearTable(string tableName)
+		{
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+				string query = $"DELETE FROM [{tableName}]";
+				using (SqlCommand command = new SqlCommand(query, connection))
+				{
+					command.ExecuteNonQuery();
+				}
+			}
 		}
 
 
