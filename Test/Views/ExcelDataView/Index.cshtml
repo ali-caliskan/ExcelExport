@@ -1,0 +1,51 @@
+﻿@using Test.Models;
+@using System.Data
+@{
+    ViewBag.Title = "Index";
+}
+
+@{ var dataTable = ViewBag.DataTable as System.Data.DataTable; }
+
+<h2>Veri Tablosu</h2>
+<br />
+
+
+<table id="myTable" class="table table-bordered">
+    <thead>
+        <tr>
+            @foreach (DataColumn column in dataTable.Columns)
+            {
+                <th>@column.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in dataTable.Rows)
+        {
+            <tr>
+                @foreach (var item in row.ItemArray)
+                {
+                    <td>@item</td>
+                }
+                <td>
+                    <a href="@Url.Action("Edit", "ExcelDataView", new { id = row["Id"] })" class="btn btn-primary">Düzenle</a>
+                    <form method="post" action="@Url.Action("Sil")">
+                        <input type="hidden" name="Id" value="@row["Id"]" />
+                        <button type="submit">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<form method="post" action="@Url.Action("ExportExcel")">
+    <button type="submit" id="exportButton">Excel'e Aktar</button>
+</form>
+
+
+
+
+
+
+

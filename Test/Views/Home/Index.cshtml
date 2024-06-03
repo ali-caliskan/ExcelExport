@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Test.Models.ExcelData>
+@using Test.Models;
+@using System.Data;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{ var dataTable = ViewBag.DataTable as System.Data.DataTable; }
+
+<head>
+    <link rel="stylesheet" href="~/Content/style.css" />
+</head>
+
+<h2>Excel Sayfası</h2>
+
+<br />
+@using (Html.BeginForm("UploadExcel", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <br />
+    <input type="submit" value="Yükle" />
+}
+<br />
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Click the button below to view the Excel data.</p>
+    <form action="@Url.Action("Index", "ExcelDataView")" method="get">
+        <button type="submit" class="btn btn-primary">View Excel Data</button>
+    </form>
+</div>
+
+
+

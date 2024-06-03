@@ -1,0 +1,19 @@
+﻿@using System.Data
+
+@model DataRow
+@{ ViewBag.Title = "Edit"; }
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+                for (int i = 0; i < Model.Table.Columns.Count; i++)
+                {
+<div class="form-group">
+    @Html.Label(Model.Table.Columns[i].ColumnName)
+    @Html.TextBox(Model.Table.Columns[i].ColumnName, Model[i], new { @class = "form-control" })
+</div>}
+
+                                <button type="submit" class="btn btn-primary">Kaydet</button>}
