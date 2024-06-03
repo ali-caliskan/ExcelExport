@@ -1,4 +1,4 @@
-Projede entity framework kullanılmadı.
+# Projede entity framework kullanılmadı.
 Ado Net Sql Command nesnesi kullanarak yapıldı.
 
 Bir web sayfası oluşturuldu, bu sayfa üzerinden kullanıcı siteye excel dosyası yükleyebiliyor.
