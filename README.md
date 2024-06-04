@@ -1,5 +1,4 @@
-# Projede entity framework kullanılmadı.
-Ado Net Sql Command nesnesi kullanarak yapıldı.
+.Net FrameWork
 
 Bir web sayfası oluşturuldu, bu sayfa üzerinden kullanıcı siteye excel dosyası yükleyebiliyor.
 Yapılan proje, bu excel dosyasında bulunan kolonlarla birebir aynı olacak şekilde mssql veritabanında otomatik olarak tablo
